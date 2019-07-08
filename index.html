@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/form-l.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body style="background-color: rgb(241,247,252);">
+    
+    <div class="login-clean">
+        <form id="login-form" method="post">
+            <div class="illustration" style="background-image: url(&quot;assets/img/agroconecta.jpg&quot;);background-position: center;background-size: contain;background-repeat: no-repeat;height: 170px;"></div>
+            <div class="form-group"><input class="form-control" id="email" type="email" name="username" placeholder="Correo electrónico"></div>
+            <div class="form-group"><input class="form-control" id="password" type="password" name="password" placeholder="Contraseña"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" id="ingresar" type="submit">Ingresar</button>
+            </div><a class="forgot" href="register.html">¿Aún no tienes una cuenta? ¡Registrate aquí!</a></form>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
+
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#config-web-app -->
+    
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAKESsOoDuuPh6IxpTJlMQCM-GUkTtqfXU",
+            authDomain: "agroconecta-7a3b9.firebaseapp.com",
+            databaseURL: "https://agroconecta-7a3b9.firebaseio.com",
+            projectId: "agroconecta-7a3b9",
+            storageBucket: "agroconecta-7a3b9.appspot.com",
+            messagingSenderId: "402687212476",
+            appId: "1:402687212476:web:b8fe1bfcfb73ea50"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const functions=firebase.functions();
+    </script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/Profile-Edit-Form.js"></script>
+    <script src="assets/js/auth.js"></script>
+
+
+    
+</body>
+
+</html>

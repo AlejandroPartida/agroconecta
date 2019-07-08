@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>agroconecta</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="assets/css/form-l.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="assets/css/Register-Form.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-functions.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-search"
+        style="height: 50px;background-color: rgb(17,89,162);">
+        <div class="container"><a class="navbar-brand" href="#" style="color: rgb(255,255,255);">Moderador</a><button
+                data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                    navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1" style="height: 50px;">
+                <form class="form-inline mr-auto" target="_self"></form><a
+                    class="btn btn-light border rounded-circle action-button" role="button" href="#"
+                    style="background-image: url(&quot;assets/img/agro.png&quot;);background-position: center;background-size: contain;background-repeat: no-repeat;background-color: rgb(255,255,255);height: 45px;width: 45px;"></a>
+            </div>
+        </div>
+    </nav>
+    <div id="wrapper" style="background-color: #0d8cfd;">
+        <div class="text-nowrap" id="sidebar-wrapper" style="color: #46a1fc;background-color: rgb(255,255,255);">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"> <label style="font-weight: bold;color: rgb(45,52,59);">Menú</label></li>
+                <li data-bs-hover-animate="pulse" style="height: 45px;"> <a class="fa fa-building" href="moderador.html"
+                        style="color: rgb(52,117,183);">&nbsp; &nbsp;Empresas</a></li>
+                <li data-bs-hover-animate="pulse" style="height: 45px;"> <a class="fa fa-link" href="vinculaciones.html"
+                        style="color: rgb(52,117,183);">&nbsp; &nbsp;Vinculaciones</a></li>
+                <li data-bs-hover-animate="pulse" style="height: 45px;"> <a class="fa fa-truck" href="proovedores.html"
+                        style="color: rgb(52,117,183);">&nbsp; &nbsp;Proovedores</a></li>
+                <li data-bs-hover-animate="pulse" style="height: 45px;"> <a class="fa fa-bar-chart" href="informes.html"
+                        style="color: rgb(52,117,183);">&nbsp; &nbsp;Informes</a></li>
+                <li data-bs-hover-animate="pulse" style="height: 45px;"> <a class="fa fa-line-chart"
+                        href="indicadores.html" style="color: rgb(52,117,183);">&nbsp; &nbsp;Indicadores</a></li>
+            </ul>
+        </div>
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"
+                    style="color: rgb(255,255,255);"><i class="fa fa-bars"></i></a>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <h1 style="color: rgb(255,255,255);">Empresas</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="container profile profile-view" id="profile" style="background-color: #ffffff;">
+                                <form class="moderador-actions">
+                                    <div class="form-row profile-row">
+                                        <div class="col-md-12 offset-xl-0">
+                                            <h1 class="text-center"
+                                                style="background-color: #04203e;color: rgb(255,255,255);">
+                                                <strong>Registro de moderador</strong></h1>
+                                            <hr>
+                                            <div class="form-row">
+
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group"><label style="font-size: 18px;">Correo
+                                                            electrónico</label><input class="form-control" type="email"
+                                                            name="email" id="email"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group"><label
+                                                            style="font-size: 18px;">Contraseña</label><input
+                                                            class="form-control" type="password" name="pass1"
+                                                            id="pass1"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group"><label style="font-size: 18px;">Repetir
+                                                            Contraseña</label><input class="form-control"
+                                                            type="password" name="pass2" id="pass2"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="col-md-12 content-left"><button
+                                                            style="background: rgb(229, 226, 226)" class="btn"><a
+                                                                onclick="myFunction()"
+                                                                style="color: #000">Cancelar</a></button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="col-md-12 content-right"><button
+                                                            class="btn btn-primary form-btn" type="submit"
+                                                            id="actualizar" onclick="moderador()">Agregar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/bs-animation.js"></script>
+        <script src="assets/js/Profile-Edit-Form.js"></script>
+        <script src="assets/js/Sidebar-Menu.js"></script>
+        <script src="assets/js/moderador.js"></script>
+
+        <script>
+                function myFunction() {
+                    Swal.fire({
+                        title: '¿Estás seguro de cancelar el registro?',
+                        text: "Se perderán todos los cambios realizados",
+                        type: 'warning',
+                        showCancelButton: true,
+                        cancelButtonColor: '#9C9C9C',
+                        cancelButtonText: "Continuar editando",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, cancelar'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.href="moderador.html";
+                        }
+                    })
+                }
+            </script>
+</body>
+
+</html>

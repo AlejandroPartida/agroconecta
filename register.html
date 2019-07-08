@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Registro</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/form-l.css">
+    <link rel="stylesheet" href="assets/css/Register-Form.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+
+</head>
+
+<body style="background-color: rgb(223,237,248);">
+    <div class="container profile profile-view" id="profile" style="background-color: #ffffff;">
+        <form>
+            <div class="form-row profile-row">
+                <div class="col-md-12 offset-xl-0">
+                    <h1 class="text-center" style="background-color: #04203e;color: rgb(255,255,255);"><strong>Registro</strong></h1>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Nombre de la empresa</label><input class="form-control" type="text" name="nombre" id="nombre"></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Representante</label><input class="form-control" type="text" name="representante" id="representante"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6" style="height: 70px;">
+                            <div class="form-group"><label style="font-size: 18px;">Teléfono</label><input class="form-control" type="tel"  name="telefono" id="telefono"></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Correo electrónico</label><input class="form-control" type="email" name="correo" id="correo"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Razón social</label><input class="form-control" type="text"  name="razon" id="razon"></div>
+                        </div>
+                    </div>
+                    <div class="form-row" style="height: 70px;">
+                        <div class="col">
+                            <div class="form-group"><label style="font-size: 18px;">Dirección</label><input class="form-control" type="text" name="direccion" id="direccion"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Número de empleados</label><input class="form-control" type="number"  name="empleados" id="empleados"></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Número de sucursales</label><input class="form-control" type="number" name="sucursales" id="sucursales"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Capacidad de producción</label><input class="form-control" type="text" name="capacidad" id="capacidad"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Tipo de venta</label><select class="form-control"  name="tipo" id="tipo"><option value="" selected=""></option><option value="Mayoreo">Mayoreo</option><option value="Menudeo">Menudeo</option></select></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group"><label style="font-size: 18px;">Temporalidad</label><select class="form-control" name="temporalidad" id="temporalidad"><option value="" selected=""></option><option value="Sí">Sí</option><option value="No">No</option></select></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group"><label style="font-size: 18px;">Actividades de la empresa</label><textarea class="form-control" style="height: 100px;" name="actividades" id="actividades"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" type="submit" onclick="registrar()">Registrarme</button><button class="btn btn-danger form-btn" type="reset">Cancelar</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first 
+<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+
+ TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app 
+
+<script>
+   Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAKESsOoDuuPh6IxpTJlMQCM-GUkTtqfXU",
+    authDomain: "agroconecta-7a3b9.firebaseapp.com",
+    databaseURL: "https://agroconecta-7a3b9.firebaseio.com",
+    projectId: "agroconecta-7a3b9",
+    storageBucket: "agroconecta-7a3b9.appspot.com",
+    messagingSenderId: "402687212476",
+    appId: "1:402687212476:web:b8fe1bfcfb73ea50"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="assets/js/Profile-Edit-Form.js"></script>
+    <script src="assets/js/Sidebar-Menu.js"></script>
+    <script src="assets/js/register.js"></script>
+</body>
+
+
+
+
+</html>
