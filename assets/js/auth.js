@@ -15,6 +15,7 @@ loginForm.addEventListener('submit', (e) => {
       user.getIdTokenResult().then(idTokenResult => {
         user.moderador = idTokenResult.claims.moderador;
         location.href = "moderador.html";
+        //This is a change to the document
       })
       var email = user.email;
       // ...
