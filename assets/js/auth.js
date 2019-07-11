@@ -8,19 +8,23 @@ loginForm.addEventListener('submit', (e) => {
   auth.signInWithEmailAndPassword(email, password).then(cred => {
     console.log(cred.user);
   });
-
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      // User is signed in.
       user.getIdTokenResult().then(idTokenResult => {
         user.moderador = idTokenResult.claims.moderador;
-        location.href = "moderador.html";
-        //This is a change to the document
-      })
-      var email = user.email;
-      // ...
-      //
+        user.pyme = idTokenResult.claims.pyme;
+        user.ancla = idTokenResult.claims.ancla;
 
+        if(user.moderador){
+          location.href = "moderador.html";
+        }else if(user.pyme){
+          location.href = "pyme.html";
+        }else if(user.ancla){
+          location.href = "ancla.html";
+        }
+      });
+      
+      
     } else {
       // User is signed out.
       // ...

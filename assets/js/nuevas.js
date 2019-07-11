@@ -1,9 +1,12 @@
+
 firebase.initializeApp({
     apiKey: "AIzaSyAKESsOoDuuPh6IxpTJlMQCM-GUkTtqfXU",
     authDomain: "agroconecta-7a3b9.firebaseapp.com",
     projectId: "agroconecta-7a3b9"
 });
 var db = firebase.firestore();
+const functions = firebase.functions();
+
 
 function agregar() {
     var nombre = document.getElementById('nombre').value;
@@ -20,70 +23,95 @@ function agregar() {
     var actividades = document.getElementById('actividades').value;
     var pass1 = document.getElementById('pass1').value;
     var pass2 = document.getElementById('pass2').value;
-    var empresa =document.getElementById('empresa').value;
+    var empresa = document.getElementById('empresa').value;
 
     if (pass1 == pass2) {
-        if (nombre != "" && representante != "" && telefono != "" && correo != "" && razon != "" && direccion != "" && empleados != "" && sucursales != "" && capacidad != "" && tipo != "" && temporalidad != "" && actividades != "") {
-
+        if (nombre != "" && representante != "" && telefono != "" && correo != "" && razon != "" && direccion != "" && empleados != "" && sucursales != "" && capacidad != "" && tipo != "" && temporalidad != "" && actividades != "" && empresa != "") {
             firebase.auth().createUserWithEmailAndPassword(correo, pass1)
-            .then(cred => {
-            })
-                .catch(function (error) {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    if (errorCode == 'auth/weak-password') {
-                        alert('The password is too weak.');
-                    } else {
-                        alert(errorMessage);
+                .then(cred => {
+                    if (empresa == "ancla") {
+                        //const email = document.querySelector('correo').value;
+                        const addAnclaRole = functions.httpsCallable('addAnclaRole');
+                        addAnclaRole({ email: correo }).then(result => {
+                            console.log(result);
+                        })
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Registro completo',
+                            text: 'Empresa Ancla agregada correctamente por Agroconecta',
+                            footer: 'Gracias',
+                        })
+                    } else if (empresa == "pyme") {
+                        //const email = document.querySelector('correo').value;
+                        const addPymeRole = functions.httpsCallable('addPymeRole');
+                        addPymeRole({ email: correo }).then(result => {
+                            console.log(result);
+                        })
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Registro completo',
+                            text: 'PyME agregada correctamente por Agroconecta',
+                            footer: 'Gracias',
+                        })
                     }
-                    console.log(error);
+
+                    
+
+                   
                 });
 
-            db.collection("empresasRegistradas").add({
-                tipoEmpresa: empresa,
-                nombreEmpresa: nombre,
-                representante: representante,
-                telefono: telefono,
-                correoElectronico: correo,
-                razonSocial: razon,
-                direccion: direccion,
-                numEmpleados: empleados,
-                numSucursales: sucursales,
-                capacidadProduccion: capacidad,
-                tipoVenta: tipo,
-                temporalidad: temporalidad,
-                actividadesEmpresa: actividades,
-                "profilePicURL": 'https://firebasestorage.googleapis.com/v0/b/agroconecta-7a3b9.appspot.com/o/fotosPerfil%2Fprofilepicture.png?alt=media&token=9ab1a930-1ebc-4ce2-943f-68c2905bd787',
-                "coverPicURL": 'https://firebasestorage.googleapis.com/v0/b/agroconecta-7a3b9.appspot.com/o/fotosPortada%2FgenericCoverPicture.jpg?alt=media&token=70022301-be9c-41d6-8777-49ce70a5a738'
-            })
-                .then(function (docRef) {
-                    console.log("Document written with ID: ", docRef.id);
-                    document.getElementById('nombre').value = "";
-                    document.getElementById('empresa').value = "";
-                    document.getElementById('representante').value = "";
-                    document.getElementById('telefono').value = "";
-                    document.getElementById('correo').value = "";
-                    document.getElementById('razon').value = "";
-                    document.getElementById('direccion').value = "";
-                    document.getElementById('empleados').value = "";
-                    document.getElementById('sucursales').value = "";
-                    document.getElementById('capacidad').value = "";
-                    document.getElementById('tipo').value = "";
-                    document.getElementById('temporalidad').value = "";
-                    document.getElementById('actividades').value = "";
-                    document.getElementById('pass1').value = "";
-                    document.getElementById('pass2').value = "";
-                })
-                .catch(function (error) {
-                    console.error("Error adding document: ", error);
-                });
-            Swal.fire({
-                type: 'success',
-                title: 'Registro completo',
-                text: 'Empresa agregada correctamente por Agroconecta',
-                footer: 'Gracias',
-            })
+                const getUid = functions.httpsCallable('getUser');
+                    getUid({email: correo}).then(result => {
+                        db.collection("empresasRegistradas").doc(result.value).set({
+                            tipoEmpresa: empresa,
+                            nombreEmpresa: nombre,
+                            representante: representante,
+                            telefono: telefono,
+                            correoElectronico: correo,
+                            razonSocial: razon,
+                            direccion: direccion,
+                            numEmpleados: empleados,
+                            numSucursales: sucursales,
+                            capacidadProduccion: capacidad,
+                            tipoVenta: tipo,
+                            temporalidad: temporalidad,
+                            actividadesEmpresa: actividades,
+                            "profilePicURL": 'https://firebasestorage.googleapis.com/v0/b/agroconecta-7a3b9.appspot.com/o/fotosPerfil%2Fprofilepicture.png?alt=media&token=9ab1a930-1ebc-4ce2-943f-68c2905bd787',
+                            "coverPicURL": 'https://firebasestorage.googleapis.com/v0/b/agroconecta-7a3b9.appspot.com/o/fotosPortada%2FgenericCoverPicture.jpg?alt=media&token=70022301-be9c-41d6-8777-49ce70a5a738'
+                        })
+                            .then(function (docRef) {
+                                console.log("Document written with ID: ", docRef.id);
+                                document.getElementById('nombre').value = "";
+                                document.getElementById('empresa').value = "";
+                                document.getElementById('representante').value = "";
+                                document.getElementById('telefono').value = "";
+                                document.getElementById('correo').value = "";
+                                document.getElementById('razon').value = "";
+                                document.getElementById('direccion').value = "";
+                                document.getElementById('empleados').value = "";
+                                document.getElementById('sucursales').value = "";
+                                document.getElementById('capacidad').value = "";
+                                document.getElementById('tipo').value = "";
+                                document.getElementById('temporalidad').value = "";
+                                document.getElementById('actividades').value = "";
+                                document.getElementById('pass1').value = "";
+                                document.getElementById('pass2').value = "";
+                            })
+                            .catch(function (error) {
+                                // Handle Errors here.
+                                var errorCode = error.code;
+                                var errorMessage = error.message;
+                                if (errorCode == 'auth/weak-password') {
+                                    alert('The password is too weak.');
+                                } else {
+                                    alert(errorMessage);
+                                }
+                                console.log(error);
+                            });
+                    });
+
+
+            
         }
         else {
             Swal.fire({
